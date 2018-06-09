@@ -8,4 +8,4 @@ def create_repo(api_url, user, token, repo):
     if login.status_code == 201:
         print('\033[32m[OK]\033[0m Project created')
     else:
-        print('\033[31m[%s]\033[0m Cannot create project')
+        print('\033[31m[%s]\033[0m Cannot create project' % login.status_code)

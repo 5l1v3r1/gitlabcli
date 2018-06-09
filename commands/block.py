@@ -1,21 +1,21 @@
 import requests, sys, os
 from prettytable import PrettyTable
 
-def block(api_url, user, token, username):
-    headers = {"Accept": "application/vnd.github.giant-sentry-fist-preview+json"}
-    login = requests.put(api_url + 'user/blocks/' + username, auth=(user,token), headers=headers)
+def block(api_url, user, token, user_id):
+    headers = {"Private-Token": "%s" % token}
+    login = requests.post(api_url + 'users/' + user_id + '/block', headers=headers)
 
-    if login.status_code == 204:
-        print('\033[32m[OK]\033[0m blocked %s' % username)
+    if login.status_code == 201:
+        print('\033[32m[OK]\033[0m blocked %s' % user_id)
     else:
         print('\033[31m[%s]\033[0m Cannot block user' % login.status_code)
 
-def unblock(api_url, user, token, username):
-    headers = {"Accept": "application/vnd.github.giant-sentry-fist-preview+json"}
-    login = requests.delete(api_url + 'user/blocks/' + username, auth=(user,token), headers=headers)
+def unblock(api_url, user, token, user_id):
+    headers = {"Private-Token": "%s" % token}
+    login = requests.post(api_url + 'users/' + user_id + '/unblock', headers=headers)
 
-    if login.status_code == 204:
-        print('\033[32m[OK]\033[0m unblocked %s' % username)
+    if login.status_code == 201:
+        print('\033[32m[OK]\033[0m unblocked %s' % user_id)
     else:
         print('\033[31m[%s]\033[0m Cannot unblock' % login.status_code)
 

@@ -14,8 +14,6 @@ from commands.clone_all import *
 from commands.delete_repo import *
 from commands.create_repo import *
 from commands.edit_repo import *
-from commands.get_followers import *
-from commands.get_following import *
 from commands.find_repos import *
 from commands.profile import *
 from commands.delete_all import *
@@ -25,6 +23,8 @@ from commands.get_issues import *
 from commands.get_commits import *
 from commands.star import *
 from commands.get_files import *
+from commands.emails import *
+from commands.create_user import *
 
 api_url = 'https://www.gitlab.com/api/v4/'
 
@@ -63,13 +63,12 @@ info = '''
 
     \033[37mUsers:\033[0m
     get repos <username>              | Get all users projects
-    get starred <username>            | Get all users starred projects
+    get starred                       | Get all your starred projects
     get issues <project_id>           | Show issues for this project
     get commits <project_id>          | Show all commits for this project
     get files <project_id>            | List files in this project
     search <user>                     | Search for a user
     find <string>                     | Search for projects by string
-    block/unblock <username>          | Block/unblock this user
     blocks                            | List blocked users
     star/unstar <project_id>          | Star or unstar a users project
 
@@ -78,7 +77,13 @@ info = '''
     delete <project_id>               | Delete a project
     create <project_name>             | Create a project
     edit repo/item/string             | Valid Items: name, description, homepage, private
-    donothitenternow                  | Do Not Hit Enter Now -> DELETES ALL PROJECTS !!
+    donothitenternow                  | Do Not Hit Enter Now -> DELETES ALL YOUR PROJECTS !!
+
+    \033[37mSudo:\033[0m
+    add email <user_id> <email>                       | Add a email account for this user
+    block/unblock <user_id>                           | Block/unblock this user
+    create_user <email> <password> <username> <name>  | Create a new user
+    delete_user <user_id>                             | Delete a user
 '''
 
 def menu():
@@ -101,9 +106,8 @@ def menu():
             elif opt.startswith('get repos '):
                 username = opt.split(' ')[2]
                 get_repos(api_url, user, token, username)
-            elif opt.startswith('get starred '):
-                username = opt.split(' ')[2]
-                get_starred(api_url, user, token, username)
+            elif opt.startswith('get starred'):
+                get_starred(api_url, user, token)
             elif opt.startswith('clone all '):
                 username = opt.split(' ')[-1]
                 clone_all(api_url, user, token, username)
@@ -146,11 +150,11 @@ def menu():
                 username = opt.split(' ')[1]
                 unfollow(api_url, user, token, username)
             elif opt.startswith('block '):
-                username = opt.split(' ')[1]
-                block(api_url, user, token, username)
+                user_id = opt.split(' ')[1]
+                block(api_url, user, token, user_id)
             elif opt.startswith('unblock '):
-                username = opt.split(' ')[1]
-                unblock(api_url, user, token, username)
+                user_id = opt.split(' ')[1]
+                unblock(api_url, user, token, user_id)
             elif opt == 'blocks':
                 blocks(api_url, user, token)
             elif opt.startswith('get issues '):
@@ -168,6 +172,22 @@ def menu():
             elif opt.startswith('get files '):
                 id = opt.split(' ')[2]
                 get_files(api_url, user, token, id)
+            elif opt.startswith('add email '):
+                user_id = opt.split(' ')[2]
+                email = opt.split(' ')[3]
+                add_email(apit_url, user, token, user_id, email)
+            elif opt.startswith('create_user '):
+                email = opt.split(' ')[1]
+                password = opt.split(' ')[2]
+                username = opt.split(' ')[3]
+                name = opt.split(' ')[4]
+                create_user(api_url, user, token, email, password, username, name)
+            elif opt.startswith('delete_user '):
+                user_id = opt.split(' ')[1]
+                delete_user(api_url, user, token, user_id)
+            elif opt.startswith('add email '):
+                user_id = opt.split(' ')[2]
+                add_email(api_url, user, token, user_id, email)
             else:
                 print('\033[31m[ERROR]\033[0m Invalid option')
     except KeyboardInterrupt:

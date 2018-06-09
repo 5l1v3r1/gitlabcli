@@ -1,4 +1,4 @@
-# gitlab.py v0.0.1
+# gitlab.py v0.0.4
 
 ***
 
@@ -36,13 +36,12 @@ Commands:
 
     Users:
     get repos <username>              | Get all users projects
-    get starred <username>            | Get all users starred projects
+    get starred                       | Get all your starred projects
     get issues <project_id>           | Show issues for this project
     get commits <project_id>          | Show all commits for this project
     get files <project_id>            | List files in this project
     search <user>                     | Search for a user
     find <string>                     | Search for projects by string
-    block/unblock <username>          | Block/unblock this user
     blocks                            | List blocked users
     star/unstar <project_id>          | Star or unstar a users project
 
@@ -51,7 +50,13 @@ Commands:
     delete <project_id>               | Delete a project
     create <project_name>             | Create a project
     edit repo/item/string             | Valid Items: name, description, homepage, private
-    donothitenternow                  | Do Not Hit Enter Now -> DELETES ALL PROJECTS !!
+    donothitenternow                  | Do Not Hit Enter Now -> DELETES ALL YOUR PROJECTS !!
+
+    Sudo:
+    add email <user_id> <email>                       | Add a email account for this user
+    block/unblock <user_id>                           | Block/unblock this user
+    create_user <email> <password> <username> <name>  | Create a new user
+    delete_user <user_id>                             | Delete a user
 
 ```
 
