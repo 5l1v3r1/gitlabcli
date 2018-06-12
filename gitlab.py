@@ -175,7 +175,7 @@ def menu():
             elif opt.startswith('add email '):
                 user_id = opt.split(' ')[2]
                 email = opt.split(' ')[3]
-                add_email(apit_url, user, token, user_id, email)
+                add_email(api_url, user, token, user_id, email)
             elif opt.startswith('create_user '):
                 email = opt.split(' ')[1]
                 password = opt.split(' ')[2]
@@ -185,9 +185,6 @@ def menu():
             elif opt.startswith('delete_user '):
                 user_id = opt.split(' ')[1]
                 delete_user(api_url, user, token, user_id)
-            elif opt.startswith('add email '):
-                user_id = opt.split(' ')[2]
-                add_email(api_url, user, token, user_id, email)
             else:
                 print('\033[31m[ERROR]\033[0m Invalid option')
     except KeyboardInterrupt:
