@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # Link to docs:
 # requests: http://docs.python-requests.org/en/master/user/quickstart/
 # API:      https://docs.gitlab.com/ee/api/
@@ -76,7 +76,7 @@ info = '''
     profile                           | Show your profile
     delete <project_id>               | Delete a project
     create <project_name>             | Create a project
-    edit repo/item/string             | Valid Items: name, description, homepage, private
+    edit <project_id>/<item>/<string> | Valid Items: name, description, homepage, visibility
     donothitenternow                  | Do Not Hit Enter Now -> DELETES ALL YOUR PROJECTS !!
 
     \033[37mSudo:\033[0m
@@ -91,7 +91,7 @@ def menu():
 
         # Start Menu
         while True:
-            opt = raw_input('[gitlab] > ')
+            opt = input('[gitlab] > ')
 
             # Menu commands
             if opt == '?' or opt == 'help':
@@ -125,10 +125,10 @@ def menu():
                 repo = opt.split(' ')[1]
                 create_repo(api_url, user, token, repo)
             elif opt.startswith('edit '):
-                repo = opt.split('/')[0][5:]
+                id = opt.split('/')[0][5:]
                 item = opt.split('/')[1]
                 value = opt.split('/')[2]
-                edit_repo(api_url, user, token, item, value, repo)
+                edit_repo(api_url, user, token, item, value, id)
             elif opt.startswith('get followers '):
                 username = opt.split(' ')[-1]
                 get_followers(api_url, user, token, username)
@@ -208,7 +208,7 @@ try:
 
         ''')
 
-        user = raw_input('Username: ')
+        user = input('Username: ')
         token = getpass.getpass('Token: ')
     else:
         pass

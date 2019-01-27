@@ -1,4 +1,4 @@
-# gitlab.py v0.0.4
+# gitlab.py v0.1.1
 
 ***
 
@@ -8,7 +8,16 @@ You'll need to login with your GitLab username and API token, which you can gene
 
 Installation:
 ```Shell
-pip install -r required.txt
+apt install python3-pip
+```
+
+```Shell
+pip3 install -r required.txt
+```
+
+```Shell
+chmod +x gitlab.py
+./gitlab.py
 ```
 
 Note auth.py:
@@ -22,7 +31,7 @@ token = ''
 
 Usage:
 ```Shell
-python gitlab.py
+python3 gitlab.py
 ```
 
 Features:
